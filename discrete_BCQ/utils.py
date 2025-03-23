@@ -249,7 +249,9 @@ class AtariPreprocessing(object):
 		self.episode_length += 1
 
 		for frame in range(self.frame_skip):
-			_, reward, done, _ = self.env.step(action)
+			# _, reward, done, _ = self.env.step(action)
+			_, reward, terminated, truncated, _ = self.env.step(action)
+			done = terminated
 			total_reward += reward
 
 			if self.done_on_life_loss:
@@ -300,7 +302,8 @@ class AtariPreprocessing(object):
 def make_env(env_name, atari_preprocessing):
 	env = gym.make(env_name)
 	
-	is_atari = gym.envs.registry.spec(env_name).entry_point == 'gym.envs.atari:AtariEnv'
+	# is_atari = gym.envs.registry.spec(env_name).entry_point == 'gym.envs.atari:AtariEnv'
+	is_atari = "Atari" in env.spec.entry_point if hasattr(env.spec, "entry_point") else False
 	env = AtariPreprocessing(env, **atari_preprocessing) if is_atari else env
 
 	state_dim = (
