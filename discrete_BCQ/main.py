@@ -10,6 +10,8 @@ import torch
 import discrete_BCQ
 import DQN
 import utils
+import wandb
+import time
 
 
 def interact_with_environment(env, replay_buffer, is_atari, num_actions, state_dim, device, args, parameters):
@@ -90,6 +92,7 @@ def interact_with_environment(env, replay_buffer, is_atari, num_actions, state_d
 		if done:
 			# +1 to account for 0 indexing. +0 on ep_timesteps since it will increment +1 even if done=True
 			print(f"Total T: {t+1} Episode Num: {episode_num+1} Episode T: {episode_timesteps} Reward: {episode_reward:.3f}")
+			wandb.log({"Episode Reward": episode_reward, "Episode T": episode_timesteps, "Total T": t+1})
 			# Reset environment
 			state, done = env.reset(), False
 			episode_start = True
@@ -179,6 +182,7 @@ def eval_policy(policy, env_name, seed, eval_episodes=10):
 	print("---------------------------------------")
 	print(f"Evaluation over {eval_episodes} episodes: {avg_reward:.3f}")
 	print("---------------------------------------")
+	wandb.log({"Evaluation Reward": avg_reward, "Evaluation Episodes": eval_episodes})
 	return avg_reward
 
 
@@ -279,6 +283,13 @@ if __name__ == "__main__":
 	# Make env and determine properties
 	env, is_atari, state_dim, num_actions = utils.make_env(args.env, atari_preprocessing)
 	parameters = atari_parameters if is_atari else regular_parameters
+
+	print("Starting wandb, view at https://wandb.ai/")
+	wandb.init(
+		project='BCQ', 
+		name=f"{args.env}_seed{args.seed}_{time.strftime('%m%d%H%M%S')}",
+		config=parameters
+	)
 
 	# Set seeds
 	env.seed(args.seed)
