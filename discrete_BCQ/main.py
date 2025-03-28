@@ -203,7 +203,7 @@ if __name__ == "__main__":
 		"start_timesteps": 2e4,
 		"initial_eps": 1,
 		"end_eps": 1e-2,
-		"eps_decay_period": 25e4,
+		"eps_decay_period": 1e5,
 		# Evaluation
 		"eval_freq": 5e4,
 		"eval_eps": 1e-3,
@@ -218,7 +218,7 @@ if __name__ == "__main__":
 		},
 		"train_freq": 4,
 		"polyak_target_update": False,
-		"target_update_freq": 8e3,
+		"target_update_freq": 1000,
 		"tau": 1
 	}
 
