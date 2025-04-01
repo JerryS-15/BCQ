@@ -261,10 +261,13 @@ if __name__ == "__main__":
 	print("---------------------------------------")	
 	if args.train_behavioral:
 		print(f"Setting: Training behavioral, Env: {args.env}, Seed: {args.seed}")
+		mode = "DQN"
 	elif args.generate_buffer:
 		print(f"Setting: Generating buffer, Env: {args.env}, Seed: {args.seed}")
+		mode = "buffer"
 	else:
 		print(f"Setting: Training BCQ, Env: {args.env}, Seed: {args.seed}")
+		mode = "BCQ"
 	print("---------------------------------------")
 
 	if args.train_behavioral and args.generate_buffer:
@@ -287,7 +290,7 @@ if __name__ == "__main__":
 	print("Starting wandb, view at https://wandb.ai/")
 	wandb.init(
 		project='BCQ', 
-		name=f"{args.env}_seed{args.seed}_{time.strftime('%m%d%H%M%S')}",
+		name=f"{mode}_{args.env}_seed{args.seed}_{time.strftime('%m%d%H%M%S')}",
 		config=parameters
 	)
 
