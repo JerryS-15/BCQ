@@ -200,10 +200,10 @@ if __name__ == "__main__":
 
 	atari_parameters = {
 		# Exploration
-		"start_timesteps": 5e4,
+		"start_timesteps": 5e4,   # 2e4
 		"initial_eps": 1,
-		"end_eps": 2e-2,
-		"eps_decay_period": 2e5,
+		"end_eps": 2e-2,   # 1e-2
+		"eps_decay_period": 2e5,   # 25e4 -> 1e5
 		# Evaluation
 		"eval_freq": 5e4,
 		"eval_eps": 1e-3,
@@ -213,12 +213,12 @@ if __name__ == "__main__":
 		"batch_size": 32,
 		"optimizer": "Adam",
 		"optimizer_parameters": {
-			"lr": 0.0000625,
+			"lr": 1e-4,   # 0.0000625
 			"eps": 0.00015
 		},
 		"train_freq": 4,
 		"polyak_target_update": False,
-		"target_update_freq": 1000,
+		"target_update_freq": 1000,    # 8e3
 		"tau": 1
 	}
 
