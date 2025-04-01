@@ -200,10 +200,10 @@ if __name__ == "__main__":
 
 	atari_parameters = {
 		# Exploration
-		"start_timesteps": 2e4,
+		"start_timesteps": 5e4,
 		"initial_eps": 1,
-		"end_eps": 1e-2,
-		"eps_decay_period": 1e5,
+		"end_eps": 2e-2,
+		"eps_decay_period": 2e5,
 		# Evaluation
 		"eval_freq": 5e4,
 		"eval_eps": 1e-3,
