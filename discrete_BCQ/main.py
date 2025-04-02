@@ -156,6 +156,8 @@ def train_BCQ(env, replay_buffer, is_atari, num_actions, state_dim, device, args
         'q_values': [],
         'exploration': []
     }
+
+	print("BCQ Training started.")
 	
 	while training_iters < args.max_timesteps: 
 		
@@ -235,7 +237,7 @@ if __name__ == "__main__":
 		# Learning
 		"discount": 0.99,
 		"buffer_size": 1e6,
-		"batch_size": 128,   # 32 -> 64
+		"batch_size": 64,   # 32 -> 64 -> 128
 		"optimizer": "Adam",
 		"optimizer_parameters": {
 			"lr": 1e-4,   # 0.0000625
