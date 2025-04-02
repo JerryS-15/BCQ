@@ -146,6 +146,17 @@ class discrete_BCQ(object):
 
 		Q_loss = q_loss + i_loss + 1e-2 * i.pow(2).mean()
 
+		self.last_metrics = {
+            "total_loss": Q_loss.item(),
+            "q_loss": q_loss.item(),
+            "i_loss": i_loss.item(),
+            "q_values_mean": current_Q.mean().item(),
+            "target_q_mean": target_Q.mean().item(),
+            "imt_max": imt.max(1)[0].mean().item(),
+            "unlikely_actions_ratio": (imt < self.threshold).float().mean().item()
+        }
+
+
 		# Optimize the Q
 		self.Q_optimizer.zero_grad()
 		Q_loss.backward()
@@ -154,6 +165,8 @@ class discrete_BCQ(object):
 		# Update target network by polyak or full copy every X iterations.
 		self.iterations += 1
 		self.maybe_update_target()
+
+		return self.last_metrics
 
 
 	def polyak_target_update(self):

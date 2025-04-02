@@ -150,14 +150,39 @@ def train_BCQ(env, replay_buffer, is_atari, num_actions, state_dim, device, args
 	episode_num = 0
 	done = True 
 	training_iters = 0
+
+	metric_history = {
+        'loss': [],
+        'q_values': [],
+        'exploration': []
+    }
 	
 	while training_iters < args.max_timesteps: 
 		
+		epoch_metrics = []
 		for _ in range(int(parameters["eval_freq"])):
-			policy.train(replay_buffer)
+			metrics = policy.train(replay_buffer)
+			epoch_metrics.append(metrics)
+		
+		avg_metrics = {
+            k: np.mean([m[k] for m in epoch_metrics])
+            for k in epoch_metrics[0].keys()
+        }
 
 		evaluations.append(eval_policy(policy, args.env, args.seed))
 		np.save(f"./results/BCQ_{setting}", evaluations)
+
+		wandb.log({
+			"BCQ/total_loss": avg_metrics["total_loss"],
+            "BCQ/q_loss": avg_metrics["q_loss"],
+            "BCQ/i_loss": avg_metrics["i_loss"],
+            "BCQ/q_values_mean": avg_metrics["q_values_mean"],
+            "BCQ/target_q_mean": avg_metrics["target_q_mean"],
+            "BCQ/imt_max": avg_metrics["imt_max"],
+			"Evaluation/Q_Value_Diff": avg_metrics["q_values_mean"] - avg_metrics["target_q_mean"]
+		}, step=training_iters)
+
+		print(f"Iteration: {training_iters} | Loss: {avg_metrics['total_loss']:.3f} | IMT: {avg_metrics['imt_max']:.2f}")
 
 		training_iters += int(parameters["eval_freq"])
 		print(f"Training iterations: {training_iters}")
