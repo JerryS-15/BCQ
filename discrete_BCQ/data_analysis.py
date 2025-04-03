@@ -1,7 +1,7 @@
 import numpy as np
 import os
 
-positive_threshold = 18
+positive_threshold = 0
 reward_file = "buffers/Default_PongNoFrameskip-v4_0_reward.npy"
 rewards = np.load(reward_file)
 
