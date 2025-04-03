@@ -1,4 +1,3 @@
-import pandas as pd
 import csv
 
 file_path = "./buffer_data/wandb_0401.csv"
