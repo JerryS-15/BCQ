@@ -179,7 +179,11 @@ class discrete_BCQ(object):
 			 self.Q_target.load_state_dict(self.Q.state_dict())
 	
 	def save(self, filename):
-		torch.save(self.Q.state_dict(), filename + "_Q")
+		torch.save({
+			'Q': self.Q.state_dict(),
+			'Q_target': self.Q_target.state_dict(),
+			'imt': self.Q.i2.state_dict()
+			}, filename + "_Q")
 		torch.save(self.Q_optimizer.state_dict(), filename + "_optimizer")
 
 
