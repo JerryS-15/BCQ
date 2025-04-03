@@ -173,6 +173,7 @@ def train_BCQ(env, replay_buffer, is_atari, num_actions, state_dim, device, args
 
 		evaluations.append(eval_policy(policy, args.env, args.seed))
 		np.save(f"./results/BCQ_{setting}", evaluations)
+		policy.save(f"./models/bcq_{setting}")
 
 		wandb.log({
 			"BCQ/total_loss": avg_metrics["total_loss"],
@@ -188,6 +189,8 @@ def train_BCQ(env, replay_buffer, is_atari, num_actions, state_dim, device, args
 
 		training_iters += int(parameters["eval_freq"])
 		print(f"Training iterations: {training_iters}")
+	
+	policy.save(f"./models/bcq_{setting}")
 
 
 # Runs policy for X episodes and returns average reward
