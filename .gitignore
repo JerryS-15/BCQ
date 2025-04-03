@@ -1,2 +1,4 @@
 wandb/
 buffers/
+__pycache__/
+*.pyc
