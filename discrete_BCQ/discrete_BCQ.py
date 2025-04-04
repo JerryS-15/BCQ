@@ -16,8 +16,8 @@ class Conv_Q(nn.Module):
 		self.q1 = nn.Linear(3136, 512)
 		self.q2 = nn.Linear(512, num_actions)
 
-		self.i1 = nn.Linear(3136, 1024)   # 512
-		self.i2 = nn.Linear(1024, num_actions)   # 512
+		self.i1 = nn.Linear(3136, 2048)   # 512 -> 1024
+		self.i2 = nn.Linear(2048, num_actions)   # 512 -> 1024
 
 
 	def forward(self, state):
