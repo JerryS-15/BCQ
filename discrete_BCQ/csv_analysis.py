@@ -1,6 +1,6 @@
 import csv
 
-file_path = "./buffer_data/wandb_0401.csv"
+file_path = "./buffer_data/wandb_0407_dqn_128.csv"
 threshold = 18
 
 total_rows = 0
