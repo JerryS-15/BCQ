@@ -240,7 +240,7 @@ if __name__ == "__main__":
 		# Learning
 		"discount": 0.99,
 		"buffer_size": 1e6,
-		"batch_size": 64,   # 32 -> 64 -> 128
+		"batch_size": 32,   # 32 -> 64 -> 128
 		"optimizer": "Adam",
 		"optimizer_parameters": {
 			"lr": 1e-4,   # 0.0000625
@@ -248,7 +248,7 @@ if __name__ == "__main__":
 		},
 		"train_freq": 4,
 		"polyak_target_update": False,
-		"target_update_freq": 1000,    # 8e3
+		"target_update_freq": 1000,    # 8e3 -> 1000
 		"tau": 1
 	}
 
