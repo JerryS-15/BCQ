@@ -240,7 +240,7 @@ if __name__ == "__main__":
 		# Learning
 		"discount": 0.99,
 		"buffer_size": 1e6,
-		"batch_size": 64,   # 32 -> 64 -> 128
+		"batch_size": 128,   # 32 -> 64 -> 128
 		"optimizer": "Adam",
 		"optimizer_parameters": {
 			"lr": 1e-4,   # 0.0000625
@@ -281,7 +281,7 @@ if __name__ == "__main__":
 	parser.add_argument("--seed", default=0, type=int)             # Sets Gym, PyTorch and Numpy seeds
 	parser.add_argument("--buffer_name", default="Default")        # Prepends name to filename
 	parser.add_argument("--max_timesteps", default=1e6, type=int)  # Max time steps to run environment or train for
-	parser.add_argument("--BCQ_threshold", default=0.15, type=float)# Threshold hyper-parameter for BCQ   <- Original default is 0.3 -> tried 0.2 with depth 1024
+	parser.add_argument("--BCQ_threshold", default=0.2, type=float)# Threshold hyper-parameter for BCQ   <- Original default is 0.3 -> tried 0.2 with depth 1024
 	parser.add_argument("--low_noise_p", default=0.2, type=float)  # Probability of a low noise episode when generating buffer
 	parser.add_argument("--rand_action_p", default=0.2, type=float)# Probability of taking a random action when generating buffer, during non-low noise episode
 	parser.add_argument("--train_behavioral", action="store_true") # If true, train behavioral policy
